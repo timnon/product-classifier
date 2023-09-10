@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>classifier</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+function classify(method) {
+  $("#loading").show();
+  var url = window.location.href+'classify';
+  var text = $('#textbox').val();
+  $.ajax({
+  type: "POST",
+  url:url,
+  data: JSON.stringify({"title":text}),
+  async: true,
+  dataType: "text",
+  success: function(data) {
+    $(document).ready(function(){
+      $('#loading').hide();
+    });
+    var result = JSON.parse(data);
+    var resultString = JSON.stringify(result, null, 2);
+    $('#tagsbox').text(resultString);
+  }
+  });
+};
+
+</script>
+
+</head>
+<body>
+<center>
+
+<br><br>
+<div style="font-size: 22pt;font-family:verdana;font-weight:bold;color:#F07800;">classifier</div>
+<br>
+
+<textarea id="textbox" name="text" form="form" rows=20 cols=120 placeholder="Some text in German" style="font-size: 12pt;display: block; resize: none; overflow: scroll; margin: 0 auto;font-family:verdana"></textarea><br><br>
+<button type="button" onclick="classify()" style="border-style:inset;height:50px;width:200px;font-size: 13pt;font-family:verdana;background-color:#1366ed;border: none;color:white;font-weight:bold">classify</button>
+
+<br><br>
+<div id="loading" style="display:none; font-size: 13pt; float: center;font-family:verdana;color:#F07800;">Loading..</div>
+<br><br>
+<textarea id="tagsbox" readonly="readonly" rows=20 cols=120 placeholder="labels" style="font-size: 12pt; resize: none; overflow: scroll; display: block; margin: 0 auto;font-family:verdana;"></textarea>
+<br><br>
+
+</center>
+</body>
+</html>

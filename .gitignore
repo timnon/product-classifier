@@ -1,2 +1,8 @@
 .idea
-/data/**/*.*
+/data/**
+/venv/**
+/app/tokenizer.json
+/app/model.pkl
+__**
+.**
+credentials.json
